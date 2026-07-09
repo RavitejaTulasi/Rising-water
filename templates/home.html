@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Flood Prediction System</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <div class="logo">
+            Floods Prediction
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="/predict">Predict Floods</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <!-- ================= HERO SECTION ================= -->
+
+    <section class="hero">
+
+        <div class="overlay">
+
+            <div class="hero-content">
+
+                <h1>Flood Prediction System</h1>
+
+                <p>
+
+                    Flood forecasting is the use of rainfall and weather
+                    information to estimate the possibility of flooding.
+
+                    This Machine Learning based system analyzes rainfall,
+                    cloud cover, humidity and climatic conditions to predict
+                    whether flood conditions are likely to occur.
+
+                </p>
+
+                <a href="/predict" class="btn">
+                    Predict Floods
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+
+    <section class="about">
+
+        <div class="about-container">
+
+            <h2>About the Project</h2>
+
+            <p>
+
+                Floods are among the most destructive natural disasters.
+                Early prediction helps governments and citizens prepare
+                for emergencies.
+
+            </p>
+
+            <p>
+
+                This project uses Machine Learning algorithms trained on
+                historical rainfall data to estimate flood occurrence
+                using weather-related parameters.
+
+            </p>
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <h3>Dataset</h3>
+
+                    <p>
+                        Historical rainfall records collected across
+                        Indian states.
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Machine Learning</h3>
+
+                    <p>
+                        Random Forest Classifier trained on rainfall
+                        and weather features.
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Prediction</h3>
+
+                    <p>
+                        Predicts whether flood conditions are likely
+                        based on user inputs.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+
+            © 2026 Flood Prediction System | Machine Learning Project
+
+        </p>
+
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
