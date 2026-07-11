@@ -323,6 +323,33 @@ GitHub: https://github.com/RavitejaTulasi
 
 ---
 
+---
+# Team Members
+
+**Kodali Shamily**
+
+**B.Tech – Computer Science and Engineering (Artificial Intelligence)**
+
+KKR & KSR Institute of Technology and Sciences
+
+GitHub: https://github.com/shamilykodali
+
+**Raviteja Tulasi**
+
+**B.Tech – Computer Science and Engineering (Artificial Intelligence)**
+
+KKR & KSR Institute of Technology and Sciences
+
+GitHub: https://github.com/RavitejaTulasi
+
+**Kalari Lahari**
+
+**B.Tech – Computer Science and Engineering (Artificial Intelligence)**
+
+KKR & KSR Institute of Technology and Sciences
+
+---
+
 # 🙏 Acknowledgements
 
 This project was developed with the support of:
