@@ -5,83 +5,352 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Flood Prediction Result</title>
+    <title>Flood Risk Detected | Flood Prediction</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 
 </head>
 
-<body>
 
-    <!-- ================= NAVBAR ================= -->
+<body class="result-page flood-result-page">
 
-    <nav>
 
-        <div class="logo">
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <a href="{{ url_for('home') }}">
             Floods Prediction
-        </div>
+        </a>
 
-        <ul>
+    </div>
 
-            <li><a href="/">Home</a></li>
 
-            <li><a href="/predict">Predict Floods</a></li>
+    <ul class="nav-links">
 
-        </ul>
+        <li>
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+        </li>
 
-    </nav>
+        <li>
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
+        </li>
 
-    <!-- ================= RESULT ================= -->
+        <li>
+            <a href="{{ url_for('predict') }}">
+                Predict Floods
+            </a>
+        </li>
 
-    <section class="result-page danger-bg">
+        <li>
+            <a href="{{ url_for('history') }}">
+                History
+            </a>
+        </li>
 
-        <div class="result-card">
+        <li>
+            <a
+                href="{{ url_for('logout') }}"
+                class="logout-link"
+            >
+                Logout
+            </a>
+        </li>
 
-            <div class="icon">
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     RESULT SECTION
+===================================================== -->
+
+<main class="result-main">
+
+
+    <section class="result-card flood-result-card">
+
+
+        <!-- RESULT ICON -->
+
+        <div class="result-icon-wrapper flood-icon-wrapper">
+
+            <div class="result-icon">
                 ⚠️
             </div>
 
-            <h1>Flood Likely</h1>
+        </div>
 
-            <p>
 
-                The machine learning model predicts a
-                <strong>HIGH POSSIBILITY OF FLOOD</strong>
-                based on the entered rainfall and weather
-                conditions.
+        <!-- RESULT LABEL -->
 
-            </p>
+        <p class="result-small-label">
+            PREDICTION COMPLETED
+        </p>
 
-            <div class="tips">
 
-                <h3>Safety Tips</h3>
+        <!-- RESULT TITLE -->
 
-                <ul>
+        <h1>
+            Flood Risk Detected
+        </h1>
 
-                    <li>Stay updated with weather alerts.</li>
 
-                    <li>Move to higher ground if necessary.</li>
+        <!-- RESULT DESCRIPTION -->
 
-                    <li>Avoid flooded roads and bridges.</li>
+        <p class="result-description">
 
-                    <li>Keep emergency supplies ready.</li>
+            Based on the weather and rainfall values provided,
+            the machine learning model predicts a possibility
+            of flooding.
 
-                </ul>
+        </p>
+
+
+        <!-- =================================================
+             RESULT DETAILS
+        ================================================= -->
+
+        <div class="result-details-grid">
+
+
+            <!-- PREDICTION ID -->
+
+            <div class="result-detail-card">
+
+                <span class="result-detail-label">
+                    Prediction ID
+                </span>
+
+                <strong>
+                    #{{ prediction_id }}
+                </strong>
 
             </div>
 
-            <a href="/predict" class="btn">
-                Predict Again
-            </a>
+
+            <!-- FLOOD PROBABILITY -->
+
+            <div class="result-detail-card">
+
+                <span class="result-detail-label">
+                    Flood Probability
+                </span>
+
+                <strong class="flood-probability-text">
+
+                    {{ "%.2f"|format(probability) }}%
+
+                </strong>
+
+            </div>
+
+
+            <!-- CLASSIFICATION -->
+
+            <div class="result-detail-card">
+
+                <span class="result-detail-label">
+                    Classification
+                </span>
+
+                <strong class="flood-classification">
+                    Flood Risk
+                </strong>
+
+            </div>
+
 
         </div>
 
+
+        <!-- =================================================
+             PROBABILITY BAR
+        ================================================= -->
+
+        <div class="probability-section">
+
+
+            <div class="probability-header">
+
+                <span>
+                    Estimated Flood Probability
+                </span>
+
+                <strong>
+                    {{ "%.2f"|format(probability) }}%
+                </strong>
+
+            </div>
+
+
+            <div class="probability-track">
+
+                <div
+                    id="probabilityBar"
+                    class="probability-fill flood-probability-fill"
+                    data-probability="{{ probability }}"
+                >
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             WARNING
+        ================================================= -->
+
+        <div class="result-alert flood-alert">
+
+
+            <div class="result-alert-icon">
+                !
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Flood Risk Warning
+                </h3>
+
+
+                <p>
+
+                    The model has identified weather and rainfall
+                    patterns associated with flood conditions.
+                    Monitor official weather information and follow
+                    instructions from local authorities when actual
+                    flood warnings are issued.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             ACTION BUTTONS
+        ================================================= -->
+
+        <div class="result-actions">
+
+
+            <a
+                href="{{ url_for('predict') }}"
+                class="result-primary-btn"
+            >
+                Make New Prediction
+            </a>
+
+
+            <a
+                href="{{ url_for('history') }}"
+                class="result-secondary-btn"
+            >
+                View History
+            </a>
+
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="result-secondary-btn"
+            >
+                Dashboard
+            </a>
+
+
+        </div>
+
+
+        <!-- SAVED MESSAGE -->
+
+        <p class="result-saved-message">
+
+            This prediction and its input data have been
+            saved to your prediction history.
+
+        </p>
+
+
     </section>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="dashboard-footer">
+
+    <p>
+        Flood Prediction System &copy; 2026
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     PROBABILITY BAR SCRIPT
+===================================================== -->
+
+<script>
+
+    const probabilityBar =
+        document.getElementById("probabilityBar");
+
+
+    if (probabilityBar) {
+
+        const probability = Math.max(
+            0,
+            Math.min(
+                100,
+                Number(
+                    probabilityBar.dataset.probability
+                )
+            )
+        );
+
+
+        setTimeout(
+            function () {
+
+                probabilityBar.style.width =
+                    probability + "%";
+
+            },
+            200
+        );
+
+    }
+
+</script>
+
 
 </body>
 

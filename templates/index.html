@@ -5,150 +5,862 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Flood Prediction</title>
+    <title>Predict Flood | Flood Prediction</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 
 </head>
 
-<body>
 
-    <!-- ================= NAVBAR ================= -->
+<body class="prediction-page">
 
-    <nav>
 
-        <div class="logo">
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <a href="{{ url_for('home') }}">
             Floods Prediction
-        </div>
+        </a>
 
-        <ul>
+    </div>
 
-            <li><a href="/">Home</a></li>
 
-            <li><a href="/predict">Predict Floods</a></li>
+    <ul class="nav-links">
 
-        </ul>
+        <li>
 
-    </nav>
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
 
-    <!-- ================= PREDICTION FORM ================= -->
+        </li>
 
-    <section class="predict-section">
 
-        <div class="container">
+        <li>
 
-            <h1>Flood Prediction</h1>
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
 
-            <p class="subtitle">
-                Enter the weather and rainfall information below.
+        </li>
+
+
+        <li>
+
+            <a
+                href="{{ url_for('predict') }}"
+                class="active"
+            >
+                Predict Floods
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="{{ url_for('history') }}">
+                History
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="logout-link"
+            >
+                Logout
+            </a>
+
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     PREDICTION HERO / BANNER
+===================================================== -->
+
+<section class="prediction-hero">
+
+    <div class="prediction-hero-overlay">
+
+        <div class="prediction-hero-content">
+
+            <p class="hero-small-title">
+
+                MACHINE LEARNING PREDICTION
+
             </p>
 
-            <form action="/result" method="POST">
 
-                <div class="form-grid">
+            <h1>
 
-                    <div class="form-group">
-                        <label>Temperature (°C)</label>
-                        <input type="number" step="any"
-                               name="Temp"
-                               placeholder="Enter Temperature"
-                               required>
-                    </div>
+                Flood Risk
+                <span>
+                    Prediction
+                </span>
 
-                    <div class="form-group">
-                        <label>Humidity (%)</label>
-                        <input type="number" step="any"
-                               name="Humidity"
-                               placeholder="Enter Humidity"
-                               required>
-                    </div>
+            </h1>
 
-                    <div class="form-group">
-                        <label>Cloud Cover (%)</label>
-                        <input type="number" step="any"
-                               name="CloudCover"
-                               placeholder="Enter Cloud Cover"
-                               required>
-                    </div>
 
-                    <div class="form-group">
-                        <label>Annual Rainfall (mm)</label>
-                        <input type="number" step="any"
-                               name="ANNUAL"
-                               placeholder="Enter Annual Rainfall"
-                               required>
-                    </div>
+            <p>
 
-                    <div class="form-group">
-                        <label>Jan-Feb Rainfall</label>
-                        <input type="number" step="any"
-                               name="JanFeb"
-                               placeholder="Enter Jan-Feb Rainfall"
-                               required>
-                    </div>
+                Enter the required weather and rainfall
+                information below. The trained Random Forest
+                model will analyze the data and estimate
+                whether flood conditions are likely.
 
-                    <div class="form-group">
-                        <label>Mar-May Rainfall</label>
-                        <input type="number" step="any"
-                               name="MarMay"
-                               placeholder="Enter Mar-May Rainfall"
-                               required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Jun-Sep Rainfall</label>
-                        <input type="number" step="any"
-                               name="JunSep"
-                               placeholder="Enter Jun-Sep Rainfall"
-                               required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Oct-Dec Rainfall</label>
-                        <input type="number" step="any"
-                               name="OctDec"
-                               placeholder="Enter Oct-Dec Rainfall"
-                               required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Average June Rainfall</label>
-                        <input type="number" step="any"
-                               name="avgjune"
-                               placeholder="Enter Average June Rainfall"
-                               required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Sub Rainfall</label>
-                        <input type="number" step="any"
-                               name="sub"
-                               placeholder="Enter Sub Rainfall"
-                               required>
-                    </div>
-
-                </div>
-
-                <div class="button-box">
-
-                    <button type="submit">
-
-                        Predict Flood
-
-                    </button>
-
-                </div>
-
-            </form>
+            </p>
 
         </div>
 
-    </section>
+    </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</section>
+
+
+<!-- =====================================================
+     PREDICTION FORM SECTION
+===================================================== -->
+
+<section class="prediction-form-section">
+
+
+    <div class="prediction-container">
+
+
+        <!-- =============================================
+             FORM HEADER
+        ============================================== -->
+
+        <div class="prediction-form-header">
+
+
+            <div>
+
+                <p class="section-label">
+
+                    WEATHER & RAINFALL DATA
+
+                </p>
+
+
+                <h2>
+
+                    Enter Prediction Values
+
+                </h2>
+
+
+                <p>
+
+                    Complete all 10 input fields before
+                    submitting the prediction.
+
+                </p>
+
+            </div>
+
+
+            <div class="prediction-user-info">
+
+                <span>
+                    Logged in as
+                </span>
+
+                <strong>
+
+                    {{ session.get('user_name', 'User') }}
+
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =============================================
+             FLASH MESSAGES
+        ============================================== -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                <div class="dashboard-flash-container">
+
+                    {% for category, message in messages %}
+
+                        <div class="flash-message {{ category }}">
+
+                            {{ message }}
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- =============================================
+             PREDICTION FORM
+        ============================================== -->
+
+        <form
+            action="{{ url_for('result') }}"
+            method="POST"
+            class="prediction-form"
+            id="predictionForm"
+        >
+
+
+            <!-- =========================================
+                 WEATHER CONDITIONS
+            ========================================== -->
+
+            <div class="prediction-form-block">
+
+
+                <div class="form-block-heading">
+
+                    <div class="form-block-number">
+
+                        01
+
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+
+                            Weather Conditions
+
+                        </h3>
+
+
+                        <p>
+
+                            Enter the temperature, humidity
+                            and cloud cover values.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="prediction-form-grid">
+
+
+                    <!-- TEMPERATURE -->
+
+                    <div class="prediction-form-group">
+
+                        <label for="Temp">
+
+                            Temperature
+
+                            <span>
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="input-with-unit">
+
+                            <input
+                                type="number"
+                                id="Temp"
+                                name="Temp"
+                                placeholder="Example: 28"
+                                step="any"
+                                required
+                            >
+
+                            <span class="input-unit">
+
+                                °C
+
+                            </span>
+
+                        </div>
+
+
+                        <small>
+
+                            Atmospheric temperature in Celsius
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- HUMIDITY -->
+
+                    <div class="prediction-form-group">
+
+                        <label for="Humidity">
+
+                            Humidity
+
+                            <span>
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="input-with-unit">
+
+                            <input
+                                type="number"
+                                id="Humidity"
+                                name="Humidity"
+                                placeholder="Example: 75"
+                                step="any"
+                                required
+                            >
+
+                            <span class="input-unit">
+
+                                %
+
+                            </span>
+
+                        </div>
+
+
+                        <small>
+
+                            Relative humidity percentage
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- CLOUD COVER -->
+
+                    <div class="prediction-form-group">
+
+                        <label for="CloudCover">
+
+                            Cloud Cover
+
+                            <span>
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="input-with-unit">
+
+                            <input
+                                type="number"
+                                id="CloudCover"
+                                name="CloudCover"
+                                placeholder="Example: 40"
+                                step="any"
+                                required
+                            >
+
+                            <span class="input-unit">
+
+                                %
+
+                            </span>
+
+                        </div>
+
+
+                        <small>
+
+                            Percentage of sky covered by clouds
+
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 RAINFALL CONDITIONS
+            ========================================== -->
+
+            <div class="prediction-form-block">
+
+
+                <div class="form-block-heading">
+
+                    <div class="form-block-number">
+
+                        02
+
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+
+                            Rainfall Information
+
+                        </h3>
+
+
+                        <p>
+
+                            Enter annual and seasonal rainfall
+                            measurements.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="prediction-form-grid">
+
+
+                    <!-- ANNUAL -->
+
+                    <div class="prediction-form-group">
+
+                        <label for="ANNUAL">
+
+                            Annual Rainfall
+
+                            <span>
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="input-with-unit">
+
+                            <input
+                                type="number"
+                                id="ANNUAL"
+                                name="ANNUAL"
+                                placeholder="Example: 3326.6"
+                                step="any"
+                                required
+                            >
+
+                            <span class="input-unit">
+
+                                mm
+
+                            </span>
+
+                        </div>
+
+
+                        <small>
+
+                            Total annual rainfall
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- JAN FEB -->
+
+                    <div class="prediction-form-group">
+
+                        <label for="JanFeb">
+
+                            January-February Rainfall
+
+                            <span>
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="input-with-unit">
+
+                            <input
+                                type="number"
+                                id="JanFeb"
+                                name="JanFeb"
+                                placeholder="Example: 9.3"
+                                step="any"
+                                required
+                            >
+
+                            <span class="input-unit">
+
+                                mm
+
+                            </span>
+
+                        </div>
+
+
+                        <small>
+
+                            Combined January and February rainfall
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- MAR MAY -->
+
+                    <div class="prediction-form-group">
+
+                        <label for="MarMay">
+
+                            March-May Rainfall
+
+                            <span>
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="input-with-unit">
+
+                            <input
+                                type="number"
+                                id="MarMay"
+                                name="MarMay"
+                                placeholder="Example: 275.7"
+                                step="any"
+                                required
+                            >
+
+                            <span class="input-unit">
+
+                                mm
+
+                            </span>
+
+                        </div>
+
+
+                        <small>
+
+                            Combined March to May rainfall
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- JUN SEP -->
+
+                    <div class="prediction-form-group">
+
+                        <label for="JunSep">
+
+                            June-September Rainfall
+
+                            <span>
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="input-with-unit">
+
+                            <input
+                                type="number"
+                                id="JunSep"
+                                name="JunSep"
+                                placeholder="Example: 2403.4"
+                                step="any"
+                                required
+                            >
+
+                            <span class="input-unit">
+
+                                mm
+
+                            </span>
+
+                        </div>
+
+
+                        <small>
+
+                            Monsoon rainfall from June to September
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- OCT DEC -->
+
+                    <div class="prediction-form-group">
+
+                        <label for="OctDec">
+
+                            October-December Rainfall
+
+                            <span>
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="input-with-unit">
+
+                            <input
+                                type="number"
+                                id="OctDec"
+                                name="OctDec"
+                                placeholder="Example: 638.2"
+                                step="any"
+                                required
+                            >
+
+                            <span class="input-unit">
+
+                                mm
+
+                            </span>
+
+                        </div>
+
+
+                        <small>
+
+                            Combined October to December rainfall
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- AVG JUNE -->
+
+                    <div class="prediction-form-group">
+
+                        <label for="avgjune">
+
+                            Average June Rainfall
+
+                            <span>
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="input-with-unit">
+
+                            <input
+                                type="number"
+                                id="avgjune"
+                                name="avgjune"
+                                placeholder="Example: 130.3"
+                                step="any"
+                                required
+                            >
+
+                            <span class="input-unit">
+
+                                mm
+
+                            </span>
+
+                        </div>
+
+
+                        <small>
+
+                            Average rainfall measurement for June
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- SUB RAINFALL -->
+
+                    <div class="prediction-form-group">
+
+                        <label for="sub">
+
+                            Sub Rainfall
+
+                            <span>
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="input-with-unit">
+
+                            <input
+                                type="number"
+                                id="sub"
+                                name="sub"
+                                placeholder="Example: 256.4"
+                                step="any"
+                                required
+                            >
+
+                            <span class="input-unit">
+
+                                mm
+
+                            </span>
+
+                        </div>
+
+
+                        <small>
+
+                            Sub rainfall feature used by the trained model
+
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 SUBMIT AREA
+            ========================================== -->
+
+            <div class="prediction-submit-area">
+
+
+                <div class="prediction-submit-info">
+
+                    <strong>
+
+                        Ready to predict?
+
+                    </strong>
+
+
+                    <p>
+
+                        The input values will be analyzed by
+                        the trained Random Forest model and
+                        stored in your prediction history.
+
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="prediction-submit-btn"
+                    id="predictButton"
+                >
+
+                    Predict Flood Risk
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="dashboard-footer">
+
+    <p>
+
+        Flood Prediction System
+        &copy; 2026
+
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    const predictionForm =
+        document.getElementById("predictionForm");
+
+    const predictButton =
+        document.getElementById("predictButton");
+
+
+    predictionForm.addEventListener(
+        "submit",
+        function () {
+
+            predictButton.disabled = true;
+
+            predictButton.textContent =
+                "Analyzing Data...";
+
+        }
+    );
+
+</script>
+
 
 </body>
 

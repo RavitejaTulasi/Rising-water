@@ -5,148 +5,801 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Flood Prediction System</title>
 
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 
 </head>
 
-<body>
 
-    <!-- ================= NAVBAR ================= -->
+<body class="home-page">
 
-    <nav>
 
-        <div class="logo">
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <a href="{{ url_for('home') }}">
             Floods Prediction
-        </div>
+        </a>
 
-        <ul>
+    </div>
+
+
+    <ul class="nav-links">
+
+
+        <!-- HOME -->
+
+        <li>
+
+            <a
+                href="{{ url_for('home') }}"
+                class="active"
+            >
+                Home
+            </a>
+
+        </li>
+
+
+        <!-- IF USER IS LOGGED IN -->
+
+        {% if session.get('user_id') %}
+
 
             <li>
-                <a href="/">Home</a>
+
+                <a href="{{ url_for('dashboard') }}">
+                    Dashboard
+                </a>
+
             </li>
+
 
             <li>
-                <a href="/predict">Predict Floods</a>
-            </li>
 
-        </ul>
-
-    </nav>
-
-    <!-- ================= HERO SECTION ================= -->
-
-    <section class="hero">
-
-        <div class="overlay">
-
-            <div class="hero-content">
-
-                <h1>Flood Prediction System</h1>
-
-                <p>
-
-                    Flood forecasting is the use of rainfall and weather
-                    information to estimate the possibility of flooding.
-
-                    This Machine Learning based system analyzes rainfall,
-                    cloud cover, humidity and climatic conditions to predict
-                    whether flood conditions are likely to occur.
-
-                </p>
-
-                <a href="/predict" class="btn">
+                <a href="{{ url_for('predict') }}">
                     Predict Floods
                 </a>
 
-            </div>
+            </li>
 
-        </div>
 
-    </section>
+            <li>
 
-    <!-- ================= ABOUT ================= -->
+                <a href="{{ url_for('history') }}">
+                    History
+                </a>
 
-    <section class="about">
+            </li>
 
-        <div class="about-container">
 
-            <h2>About the Project</h2>
+            <li>
 
-            <p>
+                <a
+                    href="{{ url_for('logout') }}"
+                    class="logout-link"
+                >
+                    Logout
+                </a>
 
-                Floods are among the most destructive natural disasters.
-                Early prediction helps governments and citizens prepare
-                for emergencies.
+            </li>
+
+
+        <!-- IF USER IS NOT LOGGED IN -->
+
+        {% else %}
+
+
+            <li>
+
+                <a href="{{ url_for('login') }}">
+                    Login
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="{{ url_for('register') }}"
+                    class="register-nav-btn"
+                >
+                    Register
+                </a>
+
+            </li>
+
+
+        {% endif %}
+
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+
+<section class="home-hero">
+
+
+    <div class="home-hero-overlay">
+
+
+        <div class="home-hero-content">
+
+
+            <p class="hero-small-title">
+
+                MACHINE LEARNING BASED SYSTEM
 
             </p>
 
-            <p>
 
-                This project uses Machine Learning algorithms trained on
-                historical rainfall data to estimate flood occurrence
-                using weather-related parameters.
+            <h1>
+
+                Predict Flood Risk Using
+                <span>
+                    Weather & Rainfall Data
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Our Flood Prediction System uses machine learning
+                to analyze temperature, humidity, cloud cover and
+                seasonal rainfall patterns to estimate the
+                possibility of flooding.
 
             </p>
 
-            <div class="cards">
 
-                <div class="card">
+            <div class="hero-buttons">
 
-                    <h3>Dataset</h3>
 
-                    <p>
-                        Historical rainfall records collected across
-                        Indian states.
-                    </p>
+                {% if session.get('user_id') %}
 
-                </div>
 
-                <div class="card">
+                    <a
+                        href="{{ url_for('predict') }}"
+                        class="primary-hero-btn"
+                    >
 
-                    <h3>Machine Learning</h3>
+                        Predict Flood
 
-                    <p>
-                        Random Forest Classifier trained on rainfall
-                        and weather features.
-                    </p>
+                    </a>
 
-                </div>
 
-                <div class="card">
+                    <a
+                        href="{{ url_for('dashboard') }}"
+                        class="secondary-hero-btn"
+                    >
 
-                    <h3>Prediction</h3>
+                        View Dashboard
 
-                    <p>
-                        Predicts whether flood conditions are likely
-                        based on user inputs.
-                    </p>
+                    </a>
 
-                </div>
+
+                {% else %}
+
+
+                    <a
+                        href="{{ url_for('register') }}"
+                        class="primary-hero-btn"
+                    >
+
+                        Get Started
+
+                    </a>
+
+
+                    <a
+                        href="{{ url_for('login') }}"
+                        class="secondary-hero-btn"
+                    >
+
+                        Login
+
+                    </a>
+
+
+                {% endif %}
+
 
             </div>
 
+
         </div>
 
-    </section>
 
-    <!-- ================= FOOTER ================= -->
+    </div>
 
-    <footer>
+
+</section>
+
+
+<!-- =====================================================
+     INTRODUCTION SECTION
+===================================================== -->
+
+<section class="home-introduction">
+
+
+    <div class="home-section-container">
+
+
+        <div class="home-section-heading">
+
+
+            <p class="section-label">
+
+                INTRODUCTION
+
+            </p>
+
+
+            <h2>
+
+                Understanding Flood Prediction
+
+            </h2>
+
+
+            <p>
+
+                Flood forecasting uses historical rainfall and
+                climatic information to estimate whether flooding
+                may occur. Machine learning helps identify patterns
+                in weather data and provides data-driven flood risk
+                predictions.
+
+            </p>
+
+
+        </div>
+
+
+        <div class="intro-grid">
+
+
+            <!-- CARD 1 -->
+
+            <div class="intro-card">
+
+
+                <div class="intro-card-number">
+
+                    01
+
+                </div>
+
+
+                <h3>
+
+                    Weather Analysis
+
+                </h3>
+
+
+                <p>
+
+                    The system analyzes temperature, humidity and
+                    cloud cover to understand current climatic
+                    conditions.
+
+                </p>
+
+
+            </div>
+
+
+            <!-- CARD 2 -->
+
+            <div class="intro-card">
+
+
+                <div class="intro-card-number">
+
+                    02
+
+                </div>
+
+
+                <h3>
+
+                    Rainfall Patterns
+
+                </h3>
+
+
+                <p>
+
+                    Annual and seasonal rainfall measurements are
+                    used to identify conditions associated with
+                    potential flooding.
+
+                </p>
+
+
+            </div>
+
+
+            <!-- CARD 3 -->
+
+            <div class="intro-card">
+
+
+                <div class="intro-card-number">
+
+                    03
+
+                </div>
+
+
+                <h3>
+
+                    Machine Learning
+
+                </h3>
+
+
+                <p>
+
+                    A trained Random Forest classification model
+                    processes the input features and predicts
+                    whether flood conditions are likely.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+
+<section class="how-it-works">
+
+
+    <div class="home-section-container">
+
+
+        <div class="home-section-heading centered-heading">
+
+
+            <p class="section-label">
+
+                PROCESS
+
+            </p>
+
+
+            <h2>
+
+                How the System Works
+
+            </h2>
+
+
+            <p>
+
+                The prediction process consists of three
+                simple steps.
+
+            </p>
+
+
+        </div>
+
+
+        <div class="process-grid">
+
+
+            <!-- STEP 1 -->
+
+            <div class="process-card">
+
+
+                <div class="process-number">
+
+                    1
+
+                </div>
+
+
+                <h3>
+
+                    Enter Weather Data
+
+                </h3>
+
+
+                <p>
+
+                    Provide temperature, humidity, cloud cover
+                    and rainfall information through the
+                    prediction form.
+
+                </p>
+
+
+            </div>
+
+
+            <!-- STEP 2 -->
+
+            <div class="process-card">
+
+
+                <div class="process-number">
+
+                    2
+
+                </div>
+
+
+                <h3>
+
+                    ML Model Analysis
+
+                </h3>
+
+
+                <p>
+
+                    The trained Random Forest model analyzes
+                    the ten input features and calculates
+                    the prediction.
+
+                </p>
+
+
+            </div>
+
+
+            <!-- STEP 3 -->
+
+            <div class="process-card">
+
+
+                <div class="process-number">
+
+                    3
+
+                </div>
+
+
+                <h3>
+
+                    View Prediction
+
+                </h3>
+
+
+                <p>
+
+                    Receive the flood classification and
+                    flood probability. The prediction is
+                    also stored in your account history.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     FEATURES SECTION
+===================================================== -->
+
+<section class="home-features">
+
+
+    <div class="home-section-container">
+
+
+        <div class="home-section-heading">
+
+
+            <p class="section-label">
+
+                FEATURES
+
+            </p>
+
+
+            <h2>
+
+                System Features
+
+            </h2>
+
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature-card">
+
+                <span class="feature-card-icon">
+                    🌧️
+                </span>
+
+                <h3>
+                    Flood Prediction
+                </h3>
+
+                <p>
+
+                    Predict potential flood conditions using
+                    ten weather and rainfall parameters.
+
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <span class="feature-card-icon">
+                    📊
+                </span>
+
+                <h3>
+                    User Dashboard
+                </h3>
+
+                <p>
+
+                    Track the number of flood and no-flood
+                    predictions made from your account.
+
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <span class="feature-card-icon">
+                    📋
+                </span>
+
+                <h3>
+                    Prediction History
+                </h3>
+
+                <p>
+
+                    Review previous inputs, results,
+                    probabilities and prediction dates.
+
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <span class="feature-card-icon">
+                    🤖
+                </span>
+
+                <h3>
+                    Machine Learning
+                </h3>
+
+                <p>
+
+                    Uses a trained Random Forest classifier
+                    to generate flood predictions.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     CALL TO ACTION
+===================================================== -->
+
+<section class="home-cta">
+
+
+    <div class="home-cta-content">
+
+
+        <h2>
+
+            Ready to Analyze Flood Risk?
+
+        </h2>
+
 
         <p>
 
-            © 2026 Flood Prediction System | Machine Learning Project
+            Enter weather and rainfall conditions and let
+            the machine learning model analyze the data.
 
         </p>
 
-    </footer>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+        {% if session.get('user_id') %}
+
+
+            <a
+                href="{{ url_for('predict') }}"
+                class="cta-button"
+            >
+
+                Make a Prediction
+
+            </a>
+
+
+        {% else %}
+
+
+            <a
+                href="{{ url_for('register') }}"
+                class="cta-button"
+            >
+
+                Create an Account
+
+            </a>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="home-footer">
+
+
+    <div class="footer-content">
+
+
+        <div>
+
+
+            <h3>
+
+                Floods Prediction
+
+            </h3>
+
+
+            <p>
+
+                Machine Learning Based Flood Prediction System
+
+            </p>
+
+
+        </div>
+
+
+        <div class="footer-links">
+
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+
+            {% if session.get('user_id') %}
+
+
+                <a href="{{ url_for('dashboard') }}">
+                    Dashboard
+                </a>
+
+
+                <a href="{{ url_for('predict') }}">
+                    Predict
+                </a>
+
+
+                <a href="{{ url_for('history') }}">
+                    History
+                </a>
+
+
+            {% else %}
+
+
+                <a href="{{ url_for('login') }}">
+                    Login
+                </a>
+
+
+                <a href="{{ url_for('register') }}">
+                    Register
+                </a>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+
+            &copy; 2026 Flood Prediction System.
+            All rights reserved.
+
+        </p>
+
+    </div>
+
+
+</footer>
+
 
 </body>
 

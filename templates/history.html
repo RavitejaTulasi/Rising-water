@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Prediction History | Flood Prediction</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body class="history-page">
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <a href="{{ url_for('home') }}">
+            Floods Prediction
+        </a>
+
+    </div>
+
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+        </li>
+
+
+        <li>
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
+        </li>
+
+
+        <li>
+            <a href="{{ url_for('predict') }}">
+                Predict Floods
+            </a>
+        </li>
+
+
+        <li>
+            <a
+                href="{{ url_for('history') }}"
+                class="active"
+            >
+                History
+            </a>
+        </li>
+
+
+        <li>
+            <a
+                href="{{ url_for('logout') }}"
+                class="logout-link"
+            >
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="history-main">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================= -->
+
+    <section class="history-header">
+
+
+        <div>
+
+            <p class="section-label">
+                PREDICTION RECORDS
+            </p>
+
+
+            <h1>
+                Prediction History
+            </h1>
+
+
+            <p>
+
+                View all your previous flood predictions,
+                weather conditions, rainfall information,
+                flood probabilities and prediction results.
+
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('predict') }}"
+            class="dashboard-predict-btn"
+        >
+
+            New Prediction
+
+        </a>
+
+
+    </section>
+
+
+    <!-- =================================================
+         FLASH MESSAGES
+    ================================================= -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="dashboard-flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- =================================================
+         PREDICTION HISTORY
+    ================================================= -->
+
+    {% if predictions %}
+
+
+        <section class="history-list">
+
+
+            {% for prediction in predictions %}
+
+
+                <article class="history-card">
+
+
+                    <!-- =================================
+                         CARD HEADER
+                    ================================= -->
+
+                    <div class="history-card-header">
+
+
+                        <div>
+
+
+                            <p class="history-id">
+
+                                Prediction
+                                #{{ prediction["PredictionID"] }}
+
+                            </p>
+
+
+                            <p class="history-date">
+
+                                {{ prediction["PredictionDate"] }}
+
+                            </p>
+
+
+                        </div>
+
+
+                        <div>
+
+
+                            {% if prediction["FloodResult"] == 1 %}
+
+
+                                <span class="result-badge flood-badge">
+
+                                    Flood Risk
+
+                                </span>
+
+
+                            {% else %}
+
+
+                                <span class="result-badge safe-badge">
+
+                                    No Flood
+
+                                </span>
+
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =================================
+                         RESULT SUMMARY
+                    ================================= -->
+
+                    <div class="history-summary">
+
+
+                        <div class="history-summary-item">
+
+
+                            <span class="summary-label">
+
+                                Flood Probability
+
+                            </span>
+
+
+                            <strong>
+
+                                {{ "%.2f"|format(
+                                    prediction["FloodProbability"]
+                                ) }}%
+
+                            </strong>
+
+
+                        </div>
+
+
+                        <div class="history-summary-item">
+
+
+                            <span class="summary-label">
+
+                                ML Model
+
+                            </span>
+
+
+                            <strong>
+
+                                {{ prediction["ModelName"] }}
+
+                            </strong>
+
+
+                        </div>
+
+
+                        <div class="history-summary-item">
+
+
+                            <span class="summary-label">
+
+                                Algorithm
+
+                            </span>
+
+
+                            <strong>
+
+                                {{ prediction["AlgorithmType"] }}
+
+                            </strong>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =================================
+                         WEATHER INPUTS
+                    ================================= -->
+
+                    <div class="history-data-section">
+
+
+                        <h3>
+
+                            Weather & Rainfall Input Data
+
+                        </h3>
+
+
+                        <div class="history-data-grid">
+
+
+                            <!-- TEMPERATURE -->
+
+                            <div class="history-data-item">
+
+                                <span>
+                                    Temperature
+                                </span>
+
+                                <strong>
+
+                                    {{ prediction["Temp"] }} °C
+
+                                </strong>
+
+                            </div>
+
+
+                            <!-- HUMIDITY -->
+
+                            <div class="history-data-item">
+
+                                <span>
+                                    Humidity
+                                </span>
+
+                                <strong>
+
+                                    {{ prediction["Humidity"] }} %
+
+                                </strong>
+
+                            </div>
+
+
+                            <!-- CLOUD COVER -->
+
+                            <div class="history-data-item">
+
+                                <span>
+                                    Cloud Cover
+                                </span>
+
+                                <strong>
+
+                                    {{ prediction["CloudCover"] }} %
+
+                                </strong>
+
+                            </div>
+
+
+                            <!-- ANNUAL RAINFALL -->
+
+                            <div class="history-data-item">
+
+                                <span>
+                                    Annual Rainfall
+                                </span>
+
+                                <strong>
+
+                                    {{ prediction["AnnualRainfall"] }}
+                                    mm
+
+                                </strong>
+
+                            </div>
+
+
+                            <!-- JAN FEB -->
+
+                            <div class="history-data-item">
+
+                                <span>
+                                    Jan-Feb Rainfall
+                                </span>
+
+                                <strong>
+
+                                    {{ prediction["JanFebRainfall"] }}
+                                    mm
+
+                                </strong>
+
+                            </div>
+
+
+                            <!-- MAR MAY -->
+
+                            <div class="history-data-item">
+
+                                <span>
+                                    Mar-May Rainfall
+                                </span>
+
+                                <strong>
+
+                                    {{ prediction["MarMayRainfall"] }}
+                                    mm
+
+                                </strong>
+
+                            </div>
+
+
+                            <!-- JUN SEP -->
+
+                            <div class="history-data-item">
+
+                                <span>
+                                    Jun-Sep Rainfall
+                                </span>
+
+                                <strong>
+
+                                    {{ prediction["JunSepRainfall"] }}
+                                    mm
+
+                                </strong>
+
+                            </div>
+
+
+                            <!-- OCT DEC -->
+
+                            <div class="history-data-item">
+
+                                <span>
+                                    Oct-Dec Rainfall
+                                </span>
+
+                                <strong>
+
+                                    {{ prediction["OctDecRainfall"] }}
+                                    mm
+
+                                </strong>
+
+                            </div>
+
+
+                            <!-- AVG JUNE -->
+
+                            <div class="history-data-item">
+
+                                <span>
+                                    Average June Rainfall
+                                </span>
+
+                                <strong>
+
+                                    {{ prediction["AvgJuneRainfall"] }}
+                                    mm
+
+                                </strong>
+
+                            </div>
+
+
+                            <!-- SUB RAINFALL -->
+
+                            <div class="history-data-item">
+
+                                <span>
+                                    Sub Rainfall
+                                </span>
+
+                                <strong>
+
+                                    {{ prediction["SubRainfall"] }}
+                                    mm
+
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </article>
+
+
+            {% endfor %}
+
+
+        </section>
+
+
+    <!-- =================================================
+         EMPTY HISTORY
+    ================================================= -->
+
+    {% else %}
+
+
+        <section class="empty-state history-empty-state">
+
+
+            <div class="empty-state-icon">
+
+                📋
+
+            </div>
+
+
+            <h2>
+
+                No Prediction History
+
+            </h2>
+
+
+            <p>
+
+                You haven't made any flood predictions yet.
+                Your weather inputs and prediction results
+                will appear here after your first prediction.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('predict') }}"
+                class="empty-state-btn"
+            >
+
+                Make Your First Prediction
+
+            </a>
+
+
+        </section>
+
+
+    {% endif %}
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="dashboard-footer">
+
+    <p>
+
+        Flood Prediction System
+        &copy; 2026
+
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
