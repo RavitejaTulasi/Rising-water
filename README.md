@@ -85,6 +85,7 @@ The system integrates:
 - Random Forest Classifier
 - Logistic Regression
 - Decision Tree
+-KNN Model
 - XGBoost
 
 ## Python Libraries
@@ -154,7 +155,7 @@ FLOODPREDICTION/
     └── history.html             # Prediction history page
 ```
 
-> The exact project structure may vary slightly depending on the database configuration and additional files used by the application.
+
 
 ---
 
@@ -195,6 +196,7 @@ The following Machine Learning algorithms were trained and evaluated:
 - Logistic Regression
 - Decision Tree
 - Random Forest
+- KNN Model
 - XGBoost
 
 ## Model Performance
@@ -204,6 +206,7 @@ The following Machine Learning algorithms were trained and evaluated:
 | Logistic Regression | **91.30%** |
 | Decision Tree | **95.65%** |
 | Random Forest | **95.65%** |
+|KNN Model | **86.96%** |
 | XGBoost | **86.96%** |
 
 After evaluating the models, the **Random Forest Classifier** was selected for deployment because of its high accuracy and robust performance.
