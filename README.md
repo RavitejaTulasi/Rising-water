@@ -959,6 +959,14 @@ GitHub: https://github.com/lahari-kalari
 
 ---
 
+## Yalamanchi Mounika
+
+**B.Tech – Computer Science and Engineering (Artificial Intelligence)**  
+**KKR & KSR Institute of Technology and Sciences**
+
+
+---
+
 # 🙏 Acknowledgements
 
 This project was developed with the support of and using technologies from:
